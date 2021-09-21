@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Alert, Button, Card, Container, Form } from 'react-bootstrap'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { actionLoggedIn } from '../redux/actions/user'
 
 export default function Login() {
     const [username, setUsername] = useState('')
@@ -9,6 +11,7 @@ export default function Login() {
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const history = useHistory();
+    const dispatch = useDispatch()
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -28,6 +31,8 @@ export default function Login() {
                 if (data.error) {
                     setError(data.error)
                 } else {
+                    // store in redux
+                    dispatch(actionLoggedIn(data.user))
                     // redirect
                     history.push('/');
                 }

@@ -1,53 +1,65 @@
-import React, { Component } from 'react'
-import axios from 'axios';
-
-export default class Meal extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            lastName: '',
-            firstName: ''
-        }
-    }
+import React, { useState } from 'react'
+import { Alert, Button, Form, FormControl, FormGroup, InputGroup } from 'react-bootstrap'
 
 
-    onChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    };
+function Meal({onMeal}) {
+    const [type, setType] = useState('');
+    const [name, setName] = useState('');
+    const [serving, setServing] = useState('');
+    const [error, setError] = useState('');
 
-    handleSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state)
-        axios.post('http://localhost:8000/', this.state)
-            .then(response => {
-                console.log(response)
+        fetch('/api/v1/meals', {
+            method: 'POST',
+            headers: {
+                "Content-Type": 'application/json'
+            },
+            body: JSON.stringify({
+                type,
+                name,
+                serving,
             })
-            .catch(error => {
-                console.log(error)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    setError(data.error)
+                } else {
+                    onMeal(data)
+                    // clear form
+                    setType('')
+                    setName('')
+                    setServing('')
+                }
             })
     }
 
 
-    render() {
-        const { lastName, firstName } = this.state
-        return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Last Name:
-                        <input type="text" name="lastName" onChange={this.onChange} value={lastName} />
-                    </label>
-                    <label>
-                        First Name:
-                        <input type="text" name="firstName" onChange={this.onChange} value={firstName} />
-                    </label>
-                    <button type="submit">Add Guest</button>
-                </form>
-            </div>
-        )
-    }
-};
+
+    return (
+        <Form onSubmit={handleSubmit}>
+            { error && (<Alert variant="danger">{error}</Alert>)}
+            <InputGroup className="mb-3">
+                <FormGroup className="mb-3" controlId="formGroupEmail">
+                    <Form.Label>Type</Form.Label>
+                    <FormControl value={type} onChange={(e) => setType(e.target.value)} type="text" placeholder="Breakfast, Lunch or Dinner" />
+                </FormGroup>
+                <br />
+                <FormGroup className="mb-3" controlId="formGroupPassword">
+                    <Form.Label>Name</Form.Label>
+                    <FormControl value={name} onChange={(e) => setName(e.target.value)}  type="text" placeholder="What was it?" />
+                </FormGroup>
+                <br />
+                <FormGroup className="mb-3" controlId="formGroupPassword">
+                    <Form.Label>Servings</Form.Label>
+                    <FormControl value={serving} onChange={(e) => setServing(e.target.value)}  type="text" placeholder="How much?" />
+                </FormGroup>
+                <br />
+                <Button type="submit" variant="primary">Submit</Button>
+            </InputGroup>
+        </Form>
+    )
+}
+
+export default Meal
