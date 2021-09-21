@@ -2,19 +2,19 @@ var express = require('express');
 var router = express.Router();
 const db = require('../models');
 
-/* GET all workouts */
+/* GET all meals */
 router.get('/', async function (req, res, next) {
     
-    db.Workout.findAll({
+    db.Meal.findAll({
         where: { UserId: req.params.userId }
     })
-            .then(workout => {
-                res.json(workout)
+            .then(meal => {
+                res.json(meal)
             })
 });
 
 router.post('/', async (req, res) => {
-    if (!req.body.name || !req.body.reps || !req.body.start_date) {
+    if (!req.body.type || !req.body.name || !req.body.serving) {
         res.status(400).json({
             error: 'All fields required'
         })
@@ -23,15 +23,15 @@ router.post('/', async (req, res) => {
     // find logged in user
     const user = await db.User.findByPk(req.session.user.id)
 
-    // create new workout
-    const workout = await user.createWorkout({
+    // create new meal
+    const meal = await user.createMeal({
+        type: req.body.type,
         name: req.body.name,
-        reps: req.body.reps,
-        start_date: req.body.start_date,
+        serving: req.body.serving,
     })
 
     // send back response
-    res.json(workout)
+    res.json(meal)
 })
 
 module.exports = router;

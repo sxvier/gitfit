@@ -10,7 +10,8 @@ store.sync()
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-// const workoutsRouter = require('./routes/workouts')
+const workoutsRouter = require('./routes/workouts')
+const mealsRouter = require('./routes/meals')
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
-// app.use('/api/v1/workouts', workoutsRouter)
+app.use('/api/v1/workouts', workoutsRouter);
+app.use('/api/v1/meals', mealsRouter);
 
 module.exports = app;

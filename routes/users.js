@@ -2,7 +2,8 @@ var express = require('express');
 const bcrypt = require('bcrypt')
 var router = express.Router();
 const db = require('../models');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+
 
 /* Register new user */
 router.post('/register', function (req, res, next) {
@@ -87,9 +88,14 @@ router.post('/login', async (req, res) => {
   // login
   req.session.user = user
 
+  // extract password from user, assign all other properties to a new userData variable
+  const { password, ...userData } = user.dataValues;
+
   // respond with success/error
   res.json({
-    success: ' Successfully logged in'
+    success: ' Successfully logged in',
+    // send back user data that does not include password
+    user: userData 
   })
 })
 
