@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Workout.init({
-    UserId: DataTypes.INTEGER,
+
     name: DataTypes.STRING,
     reps: DataTypes.INTEGER,
     start_date: DataTypes.DATE

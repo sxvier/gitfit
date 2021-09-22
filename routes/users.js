@@ -98,5 +98,15 @@ router.post('/login', async (req, res) => {
     user: userData 
   })
 })
+// current
+router.get('/current', async (req, res) => {
+  const user = await db.User.findByPk(req.session.user.id)
+
+  // extract password from user, assign all other to a new userData variable
+  const { password, ...userData } = user.dataValues;
+
+  // respond with success/error
+  res.json(userData) // sending back userData which does not include password)
+})
 
 module.exports = router;

@@ -6,7 +6,7 @@ const db = require('../models');
 router.get('/', async function (req, res, next) {
     
     db.Workout.findAll({
-        where: { UserId: req.params.userId }
+        where: { UserId: req.session.user.id }
     })
             .then(workout => {
                 res.json(workout)
