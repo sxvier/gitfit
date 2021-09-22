@@ -38,4 +38,7 @@ app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/workouts', workoutsRouter);
 app.use('/api/v1/meals', mealsRouter);
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client/build/index.html'));
+  });
 module.exports = app;
