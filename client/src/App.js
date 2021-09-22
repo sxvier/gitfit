@@ -6,11 +6,23 @@ import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import Meals from './pages/Meals';
 import Workouts from './pages/Workouts';
-import Profile from './pages/Profile';
-import About from './pages/About';
 import Home from './pages/Home';
+import { useDispatch } from 'react-redux';
+import { actionLoggedIn, actionLoggedOut } from './redux/actions/user';
+import Dashboard from './pages/Dashboard';
 
 function App() {
+  const dispatch = useDispatch();
+  fetch('/api/v1/users/current')
+  .then(res => res.json())
+  .then(data => {
+    if (!data.error) {
+      dispatch(actionLoggedIn(data))
+    } else {
+      dispatch(actionLoggedOut())
+    }
+  }, [dispatch])
+  
   return (
     <Router>
       <NavBar />
@@ -31,11 +43,8 @@ function App() {
           <Route path="/meals">
             <Meals />
           </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/about">
-            <About />
+          <Route path="/dashboard">
+            <Dashboard />
           </Route>
         </Switch>
       </div>

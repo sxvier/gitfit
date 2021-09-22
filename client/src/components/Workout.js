@@ -56,7 +56,7 @@ function Workout({onWorkout}) {
                     <FormControl value={start_date} onChange={(e) => setStart_Date(e.target.value)} type="text" placeholder="When?" />
                 </FormGroup>
                 <br />
-                <Button type="submit" variant="primary">Submit</Button>
+                <Button type="submit" variant="danger">Submit</Button>
             </InputGroup>
         </Form>
     )

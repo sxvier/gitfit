@@ -1,0 +1,26 @@
+.logo {
+    height: 30px;
+    width: 30px;
+}
+
+.home_bg {
+    background-image: url('../components/images/fitness.jpeg');
+    min-height: 100%;
+    min-width: 1024px;
+}
+
+.carousel-item {
+    color: black;
+}
+
+.homebg {
+    width: 100%;
+    height:auto
+}
+
+body {
+    background: url(https://www.snapfitness.com/assets/HeaderBackgroundImages/0df188b58d/image-7-tips-of-fitness.jpg) 
+    no-repeat center center fixed;
+    width: auto;
+    height:auto
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import { Card, Container } from 'react-bootstrap'
 import Meal from '../components/Meal'
 
 export default function Meals() {
@@ -8,7 +8,11 @@ export default function Meals() {
     }
     return (
         <Container className="mb-3">
+            <Card>
+                <Card.Body>
             <Meal onMeal={fetchMeals}/>
+            </Card.Body>
+            </Card>
         </Container>
     )
 }

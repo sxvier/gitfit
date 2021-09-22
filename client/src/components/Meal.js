@@ -56,9 +56,10 @@ function Meal({onMeal}) {
                     <FormControl value={serving} onChange={(e) => setServing(e.target.value)}  type="text" placeholder="How much?" />
                 </FormGroup>
                 <br />
-                <Button type="submit" variant="primary">Submit</Button>
+                <Button type="submit" variant="danger">Submit</Button>
             </InputGroup>
         </Form>
+    
     )
 }
 
