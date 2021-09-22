@@ -43,7 +43,6 @@ export default function Home() {
                             <img src="https://www.seekpng.com/png/full/454-4543385_coming-soon-i-m-on-break-sign.png" class="d-block w-100" alt="..." />
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Coming soon</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
                                 <p>Calorie Counter and Run Creator with an incorporated map</p>
                             </div>
                         </div>
